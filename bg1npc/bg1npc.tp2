@@ -25,6 +25,7 @@ ALWAYS
 END /* ALWAYS */
 
 /* Language Settings */
+AUTO_EVAL_STRINGS
 AUTO_TRA ~bg1npc/tra/%s~
 LANGUAGE ~English~ ~english~ ~bg1npc/tra/english/setup.tra~
 LANGUAGE ~Espanol (traducido por Clan DLAN)~ ~spanish~ ~bg1npc/tra/spanish/setup.tra~ // http://www.clandlan.net/
@@ -3128,7 +3129,14 @@ END
   END
   
   /* Make sure this is last in Quest additions for Phase 2 */
-  COMPILE EVALUATE_BUFFER ~bg1npc/Phase2/dlg/X#ICT3.D~
+  
+  // DW smart-compile
+  
+  WITH_TRA "bg1npc\tra\english\x#ict3.tra" "bg1npc\tra\%LANGUAGE%\x#ict3.tra" BEGIN
+     LAF compile_with_ict_handling STR_VAR dialog="bg1npc/Phase2/dlg/x#ict3" END
+  END
+
+  // COMPILE EVALUATE_BUFFER ~bg1npc/Phase2/dlg/X#ICT3.D~ // replaced by DW smart-compile
 
 /* END OF BANTERS, QUESTS, INTERJECTIONS */
 
@@ -5648,3 +5656,13 @@ BEGIN @1091 DESIGNATED 200    /* The BG1 NPC Project: Player-Initiated Dialogues
     COMPILE EVALUATE_BUFFER ~bg1npc/Phase3/PID/X#AJPCFL.D~
 
 /* End of File. Enjoy! */
+
+BEGIN "temp test" DESIGNATED 99999
+
+  // DW smart-compile
+  
+//  COMPILE "bg1npc/Phase2/dlg/x#ict3.d" EVALUATE_BUFFER
+
+  WITH_TRA "bg1npc\tra\english\x#ict3.tra" "bg1npc\tra\%LANGUAGE%\x#ict3.tra" BEGIN
+     LAF compile_with_ict_handling STR_VAR dialog="bg1npc/Phase2/dlg/x#ict3" END
+  END
